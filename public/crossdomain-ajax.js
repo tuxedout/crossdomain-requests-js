@@ -122,6 +122,11 @@ var crossdomain = (function () {
 	var success = options['success'];
 	var error   = options['error'];
 	var data    = options['data'];
+	var async = false;
+	
+	if (options['async']!=null){
+		async = options['async'];
+	}
 
 	function handle_load(XHRobj) {
 	    if (XHRobj.readyState == 4) {
@@ -140,7 +145,7 @@ var crossdomain = (function () {
 	    loadPolicyURL: CROSSDOMAINJS_PATH + "load-policy.xml"
 	});
 
-	flproxy.open(type, url, true);
+	flproxy.open(type, url, async);
 	flproxy.send(data);
     }
 
@@ -168,18 +173,23 @@ var crossdomain = (function () {
 	var success = options['success'];
 	var error = options['error'];
 	var data  = options['data'];
+	var async = false;
+	if (options['async']!=null){
+		async = options['async'];
+	}
 
 	try {
 	    var xhr = new XMLHttpRequest();
+	    
 	} catch(e) {}	
 	
 	var is_sane = false;
 
 	if (xhr && "withCredentials" in xhr){
-	    xhr.open(type, url, true);
+	    xhr.open(type, url, async);
 	} else if (typeof XDomainRequest != "undefined"){
 	    xhr = new XDomainRequest();
-	    xhr.open(type, url);
+	    xhr.open(type, url, async);
 	}
 	else
 	    xhr = null;
