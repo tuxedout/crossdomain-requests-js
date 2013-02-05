@@ -19,13 +19,15 @@
               }
           });
 
+          //Async request example
           crossdomain.ajax({
             type: "POST",
             url: "http://thebuzzengine.appspot.com/api/hello/",
             data: "origin=" + escape(origin),
             success: function (txt) {
               $('#responsepost').html(txt);
-            }
+            },
+            async: false
           });
         });
       });
